@@ -1,4 +1,4 @@
-package com.example.cdcheck;
+package com.example;
 
 public enum Screen {
     START, GAME

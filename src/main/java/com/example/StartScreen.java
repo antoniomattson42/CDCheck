@@ -1,4 +1,4 @@
-package com.example.cdcheck;
+package com.example;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;

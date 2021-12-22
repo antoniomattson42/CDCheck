@@ -1,4 +1,4 @@
-package com.example.cdcheck;
+package com.example;
 import java.net.*;
 import java.io.*;
 
@@ -23,5 +23,9 @@ public class UrlCreator {
                 "?api_key=" +
                 APIKey;
         return gameURL;
+    }
+
+    public static String getChampList() {
+        return "http://ddragon.leagueoflegends.com/cdn/11.24.1/data/en_US/champion.json";
     }
 }

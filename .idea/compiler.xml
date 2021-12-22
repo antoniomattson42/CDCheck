@@ -13,4 +13,7 @@
       <module name="cdcheck" target="17" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_STRING" value="--add-modules org.json" />
+  </component>
 </project>

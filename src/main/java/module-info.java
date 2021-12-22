@@ -1,8 +1,9 @@
-module com.example.cdcheck {
+module com.example {
     requires javafx.controls;
     requires javafx.fxml;
+    requires org.json;
 
 
-    opens com.example.cdcheck to javafx.fxml;
-    exports com.example.cdcheck;
+    opens com.example to javafx.fxml;
+    exports com.example;
 }

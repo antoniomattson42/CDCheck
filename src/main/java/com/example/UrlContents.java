@@ -1,9 +1,9 @@
-package com.example.cdcheck;
+package com.example;
 import java.net.*;
 import java.io.*;
 
 public class UrlContents {
-    public String getUrlContents(String theUrl)
+    public static String getUrlContents(String theUrl)
     {
         StringBuilder content = new StringBuilder();
         // Use try and catch to avoid the exceptions

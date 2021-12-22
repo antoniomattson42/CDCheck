@@ -1,4 +1,4 @@
-package com.example.cdcheck;
+package com.example;
 
 import java.net.URL;
 import java.util.Scanner;
@@ -6,27 +6,26 @@ import java.util.Scanner;
 public class Manager {
     private String APIKey;
     private UrlCreator urlCreator;
-    private UrlContents urlContents;
+    private ChampParser parser;
 
     public Manager(String name) {
         Profile.getInstance();
         Profile.setSummonerName(name);
         APIKey = "RGAPI-30f3951e-68fb-4245-a027-467dd07d0c02";
         urlCreator = new UrlCreator(APIKey);
-        urlContents = new UrlContents();
     }
 
     public String getMatch() {
         if (Profile.getSummonerID() == null) {
             getID();
         }
-        String text = urlContents.getUrlContents(urlCreator.summonerGame(Profile.getSummonerID()));
-        System.out.println(text);
-        return text;
+        String text = UrlContents.getUrlContents(urlCreator.summonerGame(Profile.getSummonerID()));
+        parser = new ChampParser();
+        return parser.getChamp("40");
     }
 
     public String getID() {
-        String text = urlContents.getUrlContents(urlCreator.summonerProfile(Profile.getSummonerName()));
+        String text = UrlContents.getUrlContents(urlCreator.summonerProfile(Profile.getSummonerName()));
         String id = parseFor(text, "id");
         Profile.setSummonerID(id);
         return id;
