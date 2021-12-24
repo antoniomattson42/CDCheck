@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class Manager {
     private String APIKey;
     private UrlCreator urlCreator;
-    private ChampParser parser;
 
     public Manager(String name) {
         Profile.getInstance();
@@ -19,9 +18,12 @@ public class Manager {
         if (Profile.getSummonerID() == null) {
             getID();
         }
-        String text = UrlContents.getUrlContents(urlCreator.summonerGame(Profile.getSummonerID()));
-        parser = new ChampParser();
-        return parser.getChamp("40");
+        String match = UrlContents.getUrlContents(urlCreator.summonerGame(Profile.getSummonerID()));
+        System.out.println(match);
+        System.out.println(ChampParser.getAbilityDescription(0, match, 0));
+        return match;
+//        parser = new ChampParser();
+//        return parser.getChamp(urlCreator.summonerGame(), "name");
     }
 
     public String getID() {

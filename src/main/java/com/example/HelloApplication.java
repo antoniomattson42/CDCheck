@@ -11,7 +11,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         try {
-            Manager manager = new Manager("gwac");
+            Manager manager = new Manager("theasiankookie");
             UrlContents contents = new UrlContents();
             Label label = new Label();
             label.setText(manager.getMatch());
