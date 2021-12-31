@@ -5,7 +5,7 @@ import java.util.List;
  * Class to hold all the data related to the summoner and players in game
  */
 public class Profile {
-    private static String summonerName;
+    private static String summonerName = "";
     private static String summonerID;
     private static Profile singleInstance = null;
     private List<String> players;

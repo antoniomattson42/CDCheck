@@ -1,29 +1,58 @@
 package com.example;
 
-import java.net.URL;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Manager {
     private String APIKey;
     private UrlCreator urlCreator;
+    private String match;
 
-    public Manager(String name) {
+    public Manager() {
         Profile.getInstance();
-        Profile.setSummonerName(name);
         APIKey = "RGAPI-30f3951e-68fb-4245-a027-467dd07d0c02";
         urlCreator = new UrlCreator(APIKey);
     }
 
-    public String getMatch() {
-        if (Profile.getSummonerID() == null) {
+    public String setName(String name) {
+        String check = checkName(name);
+        if (check.equals(name)) {
+            Profile.setSummonerName(check);
+        }
+        return check;
+    }
+
+    private String checkName(String name) {
+        String profile = UrlContents.getUrlContents(urlCreator.summonerProfile(name));
+        if (profile.equals("")) {
+            return "Summoner not found, please enter a new one";
+        }
+        return name;
+
+    }
+
+    public String getMatch(boolean resetID) {
+        if (Profile.getSummonerID() == null || resetID) {
             getID();
         }
         String match = UrlContents.getUrlContents(urlCreator.summonerGame(Profile.getSummonerID()));
-        System.out.println(match);
-        System.out.println(ChampParser.getAbilityDescription(0, match, 0));
+        this.match = match;
         return match;
-//        parser = new ChampParser();
-//        return parser.getChamp(urlCreator.summonerGame(), "name");
+    }
+
+    public ArrayList<String> getChamps(int side) {
+        return ChampParser.getTeamChamps(side, match);
+    }
+
+    public ArrayList<String> getNames(int side) {
+        return ChampParser.getTeamNames(side, match);
+    }
+
+    public ArrayList<ImageView> getIcons(int side) {
+        return ChampParser.getTeamIcons(side, match);
     }
 
     public String getID() {

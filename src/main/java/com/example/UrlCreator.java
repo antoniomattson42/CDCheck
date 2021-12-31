@@ -32,4 +32,10 @@ public class UrlCreator {
     public static String getRegionData() {
         return "https://ddragon.leagueoflegends.com/realms/na.json";
     }
+
+    public static String getChampIcon(String id) {
+        return "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/" +
+                id +
+                ".png";
+    }
 }

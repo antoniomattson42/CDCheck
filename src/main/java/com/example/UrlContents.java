@@ -1,4 +1,6 @@
 package com.example;
+import javafx.scene.image.ImageView;
+
 import java.net.*;
 import java.io.*;
 
@@ -27,5 +29,9 @@ public class UrlContents {
             e.printStackTrace();
         }
         return content.toString();
+    }
+
+    public static ImageView getImage(String theURL) {
+        return new ImageView(theURL);
     }
 }

@@ -2,6 +2,8 @@ package com.example;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import javafx.scene.image.ImageView;
 import org.json.*;
 
 public class ChampParser {
@@ -69,6 +71,19 @@ public class ChampParser {
         return list;
     }
 
+    public static ArrayList<ImageView> getTeamIcons(int side, String match) {
+        ArrayList<String> champID = getTeamChampID(side, match);
+        ArrayList<ImageView> champImages = new ArrayList<>();
+        for (String s : champID) {
+            champImages.add(getChampIcon(s));
+        }
+        return champImages;
+    }
+
+    public static ImageView getChampIcon(String ID) {
+        return UrlContents.getImage(UrlCreator.getChampIcon(ID));
+    }
+
     private static String getTeam(int side, String match) {
         ArrayList<String> list = new ArrayList<>();
         JSONObject matchJSON = new JSONObject(match);
@@ -105,24 +120,5 @@ public class ChampParser {
     public static String getVersion() {
         JSONObject realms = new JSONObject(UrlContents.getUrlContents(UrlCreator.getRegionData()));
         return getValue(realms, "v");
-    }
-
-    private static String getValue(JSONArray array, int key) {
-        String value;
-        try {
-            value = array.getJSONObject(key).toString();
-        }
-        catch (Exception e) {
-            try {
-                value = array.getString(key);
-            } catch (Exception ee) {
-                try {
-                    value = array.getJSONArray(key).toString();
-                } catch (Exception eee) {
-                    value = "" + array.getInt(key);
-                }
-            }
-        }
-        return value;
     }
 }
