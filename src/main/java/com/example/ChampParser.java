@@ -2,6 +2,7 @@ package com.example;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import javafx.scene.control.Button;
 
 import javafx.scene.image.ImageView;
 import org.json.*;
@@ -19,10 +20,14 @@ public class ChampParser {
             String champKey = getValue(champData, "key");
             if (champKey.equals(ID)) {
                 check = false;
-                champAttribute = getValue(champData, "name");
+                champAttribute = getValue(champData, attribute);
             }
         }
         return champAttribute;
+    }
+
+    public static String getName(String ID) {
+        return getChamp(ID, "name");
     }
 
     public static ArrayList<String> getTeamNames(int side, String match) {
@@ -42,19 +47,39 @@ public class ChampParser {
         return champList;
     }
 
-    public static String getAbilityDescription(int order, String match, int ability) {
-        ArrayList<String> champs;
-        if (order > 4) {
-            order -= 5;
-            champs = getTeamChamps(200, match);
-        } else {
-            champs = getTeamChamps(100, match);
+    public static String getAbility(String ID, int abilityNum) {
+        String name = getChamp(ID, "id");
+        JSONArray abilityData = new JSONArray(getChampData("spells", name));
+        return abilityData.getJSONObject(abilityNum).toString();
+    }
+
+    public static String getAbilityAttribute(String ability, String attribute) {
+        JSONObject abilities = new JSONObject(ability);
+        return abilities.get(attribute).toString();
+    }
+
+    public static ArrayList<String> getAbilityInfo(String ID, int abilityNum) {
+        ArrayList<String> infoList = new ArrayList<>();
+        ArrayList<String> attributes = getAbilityInfoAttributes();
+        String ability = getAbility(ID, abilityNum);
+        for (String attribute: attributes) {
+            infoList.add(getAbilityAttribute(ability, attribute));
         }
-        JSONArray abilityData = new JSONArray(getChampData("spells", champs.get(order)));
-        return abilityData.getJSONObject(ability).toString();
+        return infoList;
+    }
+
+    public static ArrayList<String> getAbilityInfoAttributes() {
+        ArrayList<String> attributes = new ArrayList<>();
+        attributes.add("name");
+        attributes.add("cooldownBurn");
+        attributes.add("costBurn");
+        attributes.add("description");
+        attributes.add("id");
+        return attributes;
     }
 
     private static String getChampData(String attribute, String champName) {
+
         JSONObject champ = new JSONObject(UrlContents.getUrlContents(UrlCreator.getChampInfo(champName)));
         JSONObject data = champ.getJSONObject("data");
         JSONObject champData = data.getJSONObject(champName);
@@ -71,11 +96,11 @@ public class ChampParser {
         return list;
     }
 
-    public static ArrayList<ImageView> getTeamIcons(int side, String match) {
+    public static ArrayList<Button> getTeamIcons(int side, String match) {
         ArrayList<String> champID = getTeamChampID(side, match);
-        ArrayList<ImageView> champImages = new ArrayList<>();
+        ArrayList<Button> champImages = new ArrayList<>();
         for (String s : champID) {
-            champImages.add(getChampIcon(s));
+            champImages.add(new ChampView(s, getChampIcon(s)));
         }
         return champImages;
     }
@@ -83,6 +108,7 @@ public class ChampParser {
     public static ImageView getChampIcon(String ID) {
         return UrlContents.getImage(UrlCreator.getChampIcon(ID));
     }
+
 
     private static String getTeam(int side, String match) {
         ArrayList<String> list = new ArrayList<>();

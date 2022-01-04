@@ -26,6 +26,12 @@ public class UrlCreator {
     }
 
     public static String getChampInfo(String champName) {
+        if (champName.equals("Kai'Sa")) {
+            champName = "Kaisa";
+        }
+        if (champName.equals("LeBlanc")) {
+            champName = "Leblanc";
+        }
         return "http://ddragon.leagueoflegends.com/cdn/" + ChampParser.getVersion() + "/data/en_US/champion/" + champName + ".json";
     }
 
@@ -37,5 +43,10 @@ public class UrlCreator {
         return "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/" +
                 id +
                 ".png";
+    }
+
+    public static String getChampSplash(String id) {
+        return "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/" +
+                id + "/" + id + "000.jpg";
     }
 }

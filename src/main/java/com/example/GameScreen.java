@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
+import javafx.scene.control.Button;
 
 public class GameScreen extends GridPane {
     private final int RED = 200;
@@ -18,8 +19,8 @@ public class GameScreen extends GridPane {
     private ArrayList<String> champsRed;
     private ArrayList<String> namesBlue;
     private ArrayList<String> namesRed;
-    private ArrayList<ImageView> iconsBlue;
-    private ArrayList<ImageView> iconsRed;
+    private ArrayList<Button> iconsBlue;
+    private ArrayList<Button> iconsRed;
 
     public GameScreen() {
         manager = new Manager();
@@ -58,7 +59,7 @@ public class GameScreen extends GridPane {
         namesRed = manager.getNames(RED);
         iconsBlue = manager.getIcons(BLUE);
         iconsRed = manager.getIcons(RED);
-        fixImageSize();
+//        fixImageSize();
     }
 
     private ArrayList<Label> stringToLabel(ArrayList<String> list) {
@@ -71,12 +72,12 @@ public class GameScreen extends GridPane {
         return labelList;
     }
 
-    private void fixImageSize() {
-        for (int count = 0; count < iconsRed.size(); count++) {
-            iconsBlue.get(count).setPreserveRatio(true);
-            iconsRed.get(count).setPreserveRatio(true);
-            iconsBlue.get(count).setFitHeight(50);
-            iconsRed.get(count).setFitHeight(50);
-        }
-    }
+//    private void fixImageSize() {
+//        for (int count = 0; count < iconsRed.size(); count++) {
+//            iconsBlue.get(count).setPreserveRatio(true);
+//            iconsRed.get(count).setPreserveRatio(true);
+//            iconsBlue.get(count).setFitHeight(50);
+//            iconsRed.get(count).setFitHeight(50);
+//        }
+//    }
 }

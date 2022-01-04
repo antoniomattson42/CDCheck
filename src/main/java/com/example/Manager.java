@@ -1,8 +1,10 @@
 package com.example;
 
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,6 +17,45 @@ public class Manager {
         Profile.getInstance();
         APIKey = "RGAPI-30f3951e-68fb-4245-a027-467dd07d0c02";
         urlCreator = new UrlCreator(APIKey);
+    }
+
+    public ArrayList<ArrayList<String>> getAbilitiesInfo(String ID) {
+        ArrayList<ArrayList<String>> infoList = new ArrayList<>();
+        for (int count = 0; count < 4; count++) {
+            infoList.add(ChampParser.getAbilityInfo(ID, count));
+        }
+        return infoList;
+    }
+
+    public ArrayList<String> getAbilitiesInfoAttributes() {
+        return ChampParser.getAbilityInfoAttributes();
+    }
+
+    public ArrayList<ImageView> getAbilityIcons(String ID) {
+        ArrayList<ImageView> icons = new ArrayList<>();
+        String name = ChampParser.getName(ID);
+        name = name.replace(" ", "");
+        if (name.equals("Kai'Sa")) {
+            name = "Kaisa";
+        }
+        try {
+            icons.add(new ChampIcon("Q", name));
+            icons.add(new ChampIcon("W", name));
+            icons.add(new ChampIcon("E", name));
+            icons.add(new ChampIcon("R", name));
+        }
+        catch (Exception e) {
+            System.out.println(name + " spell not found");
+            e.printStackTrace();
+        }
+        return icons;
+    }
+
+    public ImageView getSplash(String ID) {
+        ImageView splash = new ImageView(UrlCreator.getChampSplash(ID));
+        splash.setPreserveRatio(true);
+        splash.setFitHeight(200);
+        return splash;
     }
 
     public String setName(String name) {
@@ -51,7 +92,7 @@ public class Manager {
         return ChampParser.getTeamNames(side, match);
     }
 
-    public ArrayList<ImageView> getIcons(int side) {
+    public ArrayList<Button> getIcons(int side) {
         return ChampParser.getTeamIcons(side, match);
     }
 

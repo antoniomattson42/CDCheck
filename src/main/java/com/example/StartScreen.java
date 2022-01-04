@@ -1,10 +1,10 @@
 package com.example;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
@@ -21,8 +21,10 @@ public class StartScreen extends BorderPane {
         startButton.setPrefWidth(50);
         startButton.setPrefHeight(25);
         startButton.setText("Start");
+        startButton.setGraphic(new ImageView("https://leagueoflegends.fandom.com/wiki/File:Aatrox_The_Darkin_Blade.png"));
         startButton.setOnAction(e -> {
             String name = nameField.getText();
+            name = name.replace(" ", "");
             Manager manager = new Manager();
             if (!name.equals("")) {
                 warningLabel.setText(manager.setName(name));
@@ -31,7 +33,7 @@ public class StartScreen extends BorderPane {
                         if (manager.getMatch(true).equals("")) {
                             warningLabel.setText("Summoner is not currently in a game");
                         } else {
-                            HelloApplication.changeScreen(Screen.GAME);
+                            HelloApplication.changeScreen(Screen.GAME, null);
                             System.out.println("CHANGE TO GAME SCREEN");
                         }
                     }

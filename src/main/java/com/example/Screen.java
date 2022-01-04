@@ -1,5 +1,5 @@
 package com.example;
 
 public enum Screen {
-    START, GAME
+    START, GAME, CHAMP
 }
