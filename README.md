@@ -1,3 +1,4 @@
 # CDCheck
 League Companion App
-The application displays the people in game, as well as their champs and the cooldowns for each champ in the game.
+
+The application allows you to enter the name of a player, and if they are in-game, takes them to their current match. From there you can select a champion in the screen to display all their abilities.
